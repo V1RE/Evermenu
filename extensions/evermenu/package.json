@@ -1,0 +1,50 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "evermenu",
+  "title": "Evermenu",
+  "description": "Evermenu adds a system-wide menubar widget with relevant information",
+  "icon": "command-icon.png",
+  "author": "V1RE",
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "index",
+      "title": "Test",
+      "description": "Template for showing a menu bar extra",
+      "mode": "menu-bar",
+      "interval": "1m"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "token",
+      "type": "password",
+      "required": true,
+      "title": "Everhour Token",
+      "description": "Your Everhour Token. You can find it in your Everhour profile",
+      "placeholder": "Enter your Everhour token"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.38.2",
+    "@raycast/utils": "^1.0.6",
+    "got": "^12.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "~18.0.6",
+    "@types/react": "^18.0.15",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "publish": "ray publish"
+  }
+}
