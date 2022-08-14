@@ -1,8 +1,8 @@
+import { Api } from "./api";
 import { ITimer } from "../types/api";
-import { useApi } from "./api";
 
 export const useCurrentTimer = () => {
-  const { data, ...state } = useApi<ITimer>("get", "timers/current");
+  const { data, ...state } = Api.timers.current.useGet<ITimer>();
 
   const isActive = data?.status === "active";
 

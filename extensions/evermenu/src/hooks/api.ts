@@ -1,6 +1,7 @@
 import { useCachedPromise } from "@raycast/utils";
 import { useRef } from "react";
 import { ApiClient } from "../services/client";
+import { generateHooks } from "./proxy";
 
 type Methods = "get" | "post" | "put" | "delete" | "patch";
 
@@ -16,4 +17,4 @@ export const useApi = <T>(method: Methods, url: string) => {
   );
 };
 
-export const Api = new Proxy({}, {});
+export const Api = generateHooks();
