@@ -1,20 +1,46 @@
-import { useCachedPromise } from "@raycast/utils";
-import { useRef } from "react";
+import { CachedPromiseOptions, Response, useFetch as useFetchHook } from "@raycast/utils";
+import { OptionsOfTextResponseBody } from "got";
+import { RequestInit } from "undici";
+import { API_BASE_URL, DEFAULT_HEADERS } from "../constants/api";
 import { ApiClient } from "../services/client";
-import { generateHooks } from "./proxy";
 
-type Methods = "get" | "post" | "put" | "delete" | "patch";
+export const useFetch =
+  (url: string) =>
+  <T>(
+    options?:
+      | RequestInit & { parseResponse?: ((response: Response) => Promise<T>) | undefined } & Omit<
+            CachedPromiseOptions<() => Promise<T>, undefined>,
+            "abortable"
+          >
+  ) => {
+    console.log(url);
+    return useFetchHook<T>(url, { ...options, headers: { ...DEFAULT_HEADERS, ...options?.headers } });
+  };
 
-export const useApi = <T>(method: Methods, url: string) => {
-  const abortable = useRef<AbortController>();
-
-  return useCachedPromise(
-    async (path: string) => ApiClient[method](path, { signal: abortable.current?.signal }).json<T>(),
-    [url],
-    {
-      abortable,
-    }
-  );
+const hooks = {
+  useFetch,
+  usePost:
+    (url: string) =>
+    <T>(data: OptionsOfTextResponseBody | undefined) =>
+      ApiClient.post(url, data).json<T>(),
 };
 
-export const Api = generateHooks();
+export type Hooks = typeof hooks;
+export type ApiHooks = { [K in keyof Hooks]: ReturnType<Hooks[K]> } & { [k: string]: ApiHooks };
+
+export const generateHooks = (url: string): ApiHooks => {
+  return new Proxy(hooks as unknown as ApiHooks, {
+    get(obj, propKey) {
+      if (!Reflect.has(obj, propKey)) {
+        return generateHooks(`${url}/${propKey.toString()}`);
+      }
+
+      const key = propKey.toString() as keyof Hooks;
+
+      const test = hooks[key](url);
+
+      return test;
+    },
+  });
+};
+export const Api = generateHooks(API_BASE_URL);

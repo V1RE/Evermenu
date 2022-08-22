@@ -1,3 +1,3 @@
-# Evermenu
+# Evermenu - Track your Everhour timers.
 
-Evermenu adds a system-wide menubar widget with relevant information
+Evermenu is the most 🚀 blazingly fastest 🚀 way to keep track of your Everhour timers.

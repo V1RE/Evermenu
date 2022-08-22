@@ -2,7 +2,7 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "evermenu",
   "title": "Evermenu",
-  "description": "Evermenu adds a system-wide menubar widget with relevant information",
+  "description": "Evermenu is the most blazingly fastest way to keep track of your everhour timers.",
   "icon": "command-icon.png",
   "author": "V1RE",
   "license": "MIT",

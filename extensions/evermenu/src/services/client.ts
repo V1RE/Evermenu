@@ -1,10 +1,10 @@
 import got from "got";
-import { token } from "../constants/preferences";
+import { API_TOKEN } from "../constants/preferences";
 
 export const ApiClient = got.extend({
   prefixUrl: "https://api.everhour.com/",
   headers: {
     "Content-Type": "application/json",
-    "X-Api-Key": token,
+    "X-Api-Key": API_TOKEN,
   },
 });

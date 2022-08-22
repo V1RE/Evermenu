@@ -4,4 +4,4 @@ type Prefs = {
   token: string;
 };
 
-export const { token } = getPreferenceValues<Prefs>();
+export const { token: API_TOKEN } = getPreferenceValues<Prefs>();
